@@ -2,9 +2,11 @@ var app = new Vue (
 {
 
 	el: '#app',
-	data: {
-		nbr: 1,
-		posts: []
+	data () {
+		return {
+			nbr: 1,
+			posts: []
+		}
 	},
 	created() {
 		this.getData()
@@ -13,14 +15,16 @@ var app = new Vue (
 
 		getData(){
 
-			axios.get('https://jsonplaceholder.typicode.com/todos').then( 
-				response => this.posts = response.data
+			axios.get('https://jsonplaceholder.typicode.com/todos').then(
+				response => response.data.forEach(todo => {
+					this.posts.push(todo.title.split(' '))
+        })
 			).catch(
 				erreur => console.log( erreur )
 			)
 		},
-		hideWord(itemId){
-			document.getElementById(itemId).style.visibility = "hidden"
+		hideWord(index_nbr, index_word){
+			this.posts[index_nbr].splice(index_word, 1);
 		}
 	}
 
