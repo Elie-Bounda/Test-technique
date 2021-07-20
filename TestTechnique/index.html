@@ -14,27 +14,28 @@
 		<!-- Import bootstrap 5.0 CDN -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+		<link href="styles.css" rel="stylesheet">
 	</head>
 
 	<body>
 		
-		<div id="app" class="container">
 			
+		<div id="app" class="container">
 			<p class="fs-4 text-end"><strong>Test Technique :</strong> Elie BOUNDA</p>
 			<div>
 				<label for="nbrLine" class="form-label">nombre de ligne affichées</label>
-				<input type="number" v-model="nbr" class="form-control" id="nbrLine" style="width: 70px;"  max="200"> 
+				<input type="number" v-model="nbr" class="form-control" id="nbrLine" max="200">
 			</div>
 			<br>
 			<br>
 
 			<div class="row col-8" v-if="posts.length > 0 && nbr>0 && nbr<=200">
-				<div v-for="(e,index) in parseInt(nbr)" :key="index"> 
-					<p class="fs-4"> <strong>Ligne {{ posts[index].id }} :</strong> {{ posts[index].title }}</p>
-					<div v-for=" word in (posts[index].title.split(' '))">
-						<div  :id="posts[index].id.toString()+(posts[index].title.split(' ')).indexOf(word)" class="alert alert-info alert-dismissible fade show" role="alert">
+				<div v-for="(e,index_nbr) in parseInt(nbr)" :key="index_nbr">
+					<p class="fs-4"> <strong>Ligne {{ posts[index_nbr].id }} :</strong> {{ posts[index_nbr].title }}</p>
+					<div v-for="(word,index_word) in (posts[index_nbr])" :key="index_word">
+						<div class="alert alert-info alert-dismissible fade show" role="alert">
 	  					 	{{ word }}
-	  						<button @click="hideWord( posts[index].id.toString()+(posts[index].title.split(' ')).indexOf(word)  )" class="btn-close"></button>
+	  						<button @click="hideWord(index_nbr, index_word)" class="btn-close"></button>
 						</div>
 					</div>
 				</div>
